@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         AtCoder dos2unix UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.0
+// @version      1.1
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
 // @match        *://beta.atcoder.jp/contests/*/submit
+// @match        *://beta.atcoder.jp/contests/*/tasks/*
 // ==/UserScript==
 
 declare const $ : any;
@@ -19,6 +20,8 @@ function main(): void {
     submit.addEventListener("click", function (e) {
         e.preventDefault();
 
+        const contestId = location.pathname.split('/')[2];
+        const path = "/contests/" + contestId + "/submit";
         const data = [];
         for (const tag of [ taskScreenName, languageId, sourceCode, csrfToken ]) {
             var value = tag.value;
@@ -32,7 +35,7 @@ function main(): void {
         console.log(payload);
 
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", location.pathname, false);
+        xhr.open("POST", path, false);
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(payload);
         console.log(xhr);
