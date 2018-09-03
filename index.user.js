@@ -33,7 +33,12 @@ function main() {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(payload);
         console.log(xhr);
-        location.href = xhr.responseURL;
+        if (xhr.responseURL == "https://beta.atcoder.jp/contests/" + contestId + "/submissions/me") {
+            location.href = xhr.responseURL;
+        }
+        else {
+            alert("AtCoder dos2unix UserScript: something wrong");
+        }
     });
 }
 main();
