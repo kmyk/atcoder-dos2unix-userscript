@@ -4,7 +4,7 @@
 // @version      1.1
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
-// @match        *://beta.atcoder.jp/contests/*/submit
+// @match        *://beta.atcoder.jp/contests/*/submit*
 // @match        *://beta.atcoder.jp/contests/*/tasks/*
 // @match        *://*.contest.atcoder.jp/submit*
 // ==/UserScript==
@@ -18,7 +18,7 @@ function post(path, payload, expectedURL) {
         location.href = xhr.responseURL;
     }
     else {
-        alert("AtCoder dos2unix UserScript: something wrong");
+        alert("AtCoder dos2unix UserScript: something wrong / なんか変だよ");
     }
 }
 function beta() {
@@ -27,6 +27,7 @@ function beta() {
     const sourceCode = document.getElementsByName("sourceCode")[0];
     const csrfToken = document.getElementsByName("csrf_token")[0];
     const submit = document.getElementById("submit");
+    submit.innerText += " (dos2unix)";
     submit.addEventListener("click", function (e) {
         e.preventDefault();
         const contestId = location.pathname.split('/')[2];
@@ -53,6 +54,7 @@ function alpha() {
     const languageId2520 = document.getElementsByName("language_id_2520")[0];
     const sourceCode = document.getElementsByName("source_code")[0];
     const submit = document.getElementsByTagName("button")[0];
+    submit.innerText += " (dos2unix)";
     submit.addEventListener("click", function (e) {
         e.preventDefault();
         const data = [];
