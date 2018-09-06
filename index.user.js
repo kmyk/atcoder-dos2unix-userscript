@@ -23,13 +23,14 @@ function post(path, payload, expectedURL) {
 }
 function beta() {
     const taskScreenName = document.getElementsByName("data.TaskScreenName")[0];
-    const languageId = document.getElementsByName("data.LanguageId")[0];
     const sourceCode = document.getElementsByName("sourceCode")[0];
     const csrfToken = document.getElementsByName("csrf_token")[0];
     const submit = document.getElementById("submit");
     submit.innerText += " (dos2unix)";
     submit.addEventListener("click", function (e) {
         e.preventDefault();
+        // NOTE: I didn't know why, but the "data.LanguageId" must be gotten here. see https://github.com/kmyk/atcoder-dos2unix-userscript/issues/2
+        const languageId = document.getElementsByName("data.LanguageId")[0];
         const contestId = location.pathname.split('/')[2];
         const data = [];
         for (const tag of [taskScreenName, languageId, sourceCode, csrfToken]) {
