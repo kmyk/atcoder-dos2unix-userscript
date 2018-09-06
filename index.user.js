@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AtCoder dos2unix UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.2
+// @version      1.3
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
 // @match        *://beta.atcoder.jp/contests/*/submit*
@@ -18,7 +18,7 @@ function post(path, payload, expectedURL) {
         location.href = xhr.responseURL;
     }
     else {
-        alert("AtCoder dos2unix UserScript: something wrong / なんか変だよ");
+        alert("AtCoder dos2unix UserScript: something wrong / なんか変だよ ソースコードが空だったり連投制限に引っ掛かってたりしませんか");
     }
 }
 function beta() {
