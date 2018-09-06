@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AtCoder dos2unix UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.3
+// @version      1.4
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
 // @match        *://beta.atcoder.jp/contests/*/submit*
@@ -27,7 +27,6 @@ function post(path: string, payload: string, expectedURL: string): void {
 
 function beta(): void {
     const taskScreenName = <HTMLInputElement>document.getElementsByName("data.TaskScreenName")[0];
-    const languageId     = <HTMLInputElement>document.getElementsByName("data.LanguageId")[0];
     const sourceCode     = <HTMLInputElement>document.getElementsByName("sourceCode")[0];
     const csrfToken      = <HTMLInputElement>document.getElementsByName("csrf_token")[0];
 
@@ -35,6 +34,9 @@ function beta(): void {
     submit.innerText += " (dos2unix)";
     submit.addEventListener("click", function (e) {
         e.preventDefault();
+
+        // NOTE: I didn't know why, but the "data.LanguageId" must be gotten here. see https://github.com/kmyk/atcoder-dos2unix-userscript/issues/2
+        const languageId = <HTMLInputElement>document.getElementsByName("data.LanguageId")[0];
 
         const contestId = location.pathname.split('/')[2];
         const data = [];
