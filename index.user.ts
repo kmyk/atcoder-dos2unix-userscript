@@ -21,7 +21,7 @@ function post(path: string, payload: string, expectedURL: string): void {
     if (xhr.responseURL == expectedURL) {
         location.href = xhr.responseURL;
     } else {
-        alert ("AtCoder dos2unix UserScript: something wrong / なんか変だよ");
+        alert ("AtCoder dos2unix UserScript: something wrong / なんか変だよ ソースコードが空だったり連投制限に引っ掛かってたりしませんか");
     }
 }
 
