@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AtCoder dos2unix UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.2
+// @version      1.3
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
 // @match        *://beta.atcoder.jp/contests/*/submit*
