@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AtCoder dos2unix UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.5
+// @version      1.6
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
 // @match        *://atcoder.jp/contests/*/submit*
@@ -27,13 +27,27 @@ function post(path: string, payload: string, expectedURL: string): void {
     }
 }
 
+function addNewButton(normalButton: HTMLElement): HTMLElement {
+    const button = document.createElement("button");
+    button.innerText = "提出 (dos2unix)";
+    for (const value of normalButton.classList) {
+        button.classList.add(value);
+    }
+    button.classList.remove("btn-primary");
+    button.classList.add("btn-success");
+    normalButton.parentNode.insertBefore(button, normalButton.nextSibling);
+    const space = document.createTextNode(" ");
+    normalButton.parentNode.insertBefore(space, button);
+    return button;
+}
+
 function beta(): void {
     const taskScreenName = <HTMLInputElement>document.getElementsByName("data.TaskScreenName")[0];
     const sourceCode     = <HTMLInputElement>document.getElementsByName("sourceCode")[0];
     const csrfToken      = <HTMLInputElement>document.getElementsByName("csrf_token")[0];
 
-    const submit = document.getElementById("submit");
-    submit.innerText += " (dos2unix)";
+    const normalSubmit = document.getElementById("submit");
+    const submit = addNewButton(normalSubmit);
     submit.addEventListener("click", function (e) {
         e.preventDefault();
 
@@ -66,8 +80,8 @@ function alpha(): void {
     const languageId2520 = <HTMLInputElement>document.getElementsByName("language_id_2520")[0];
     const sourceCode     = <HTMLInputElement>document.getElementsByName("source_code")[0];
 
-    const submit = document.getElementsByTagName("button")[0];
-    submit.innerText += " (dos2unix)";
+    const normalSubmit = document.getElementsByTagName("button")[0];
+    const submit = addNewButton(normalSubmit);
     submit.addEventListener("click", function (e) {
         e.preventDefault();
 

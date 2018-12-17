@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AtCoder dos2unix UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.5
+// @version      1.6
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
 // @match        *://atcoder.jp/contests/*/submit*
@@ -23,12 +23,25 @@ function post(path, payload, expectedURL) {
         alert("AtCoder dos2unix UserScript: something wrong / なんか変だよ ソースコードが空だったり連投制限に引っ掛かってたりしませんか");
     }
 }
+function addNewButton(normalButton) {
+    const button = document.createElement("button");
+    button.innerText = "提出 (dos2unix)";
+    for (const value of normalButton.classList) {
+        button.classList.add(value);
+    }
+    button.classList.remove("btn-primary");
+    button.classList.add("btn-success");
+    normalButton.parentNode.insertBefore(button, normalButton.nextSibling);
+    const space = document.createTextNode(" ");
+    normalButton.parentNode.insertBefore(space, button);
+    return button;
+}
 function beta() {
     const taskScreenName = document.getElementsByName("data.TaskScreenName")[0];
     const sourceCode = document.getElementsByName("sourceCode")[0];
     const csrfToken = document.getElementsByName("csrf_token")[0];
-    const submit = document.getElementById("submit");
-    submit.innerText += " (dos2unix)";
+    const normalSubmit = document.getElementById("submit");
+    const submit = addNewButton(normalSubmit);
     submit.addEventListener("click", function (e) {
         e.preventDefault();
         // NOTE: I didn't know why, but the "data.LanguageId" must be gotten here. see https://github.com/kmyk/atcoder-dos2unix-userscript/issues/2
@@ -56,8 +69,8 @@ function alpha() {
     const languageId207 = document.getElementsByName("language_id_207")[0];
     const languageId2520 = document.getElementsByName("language_id_2520")[0];
     const sourceCode = document.getElementsByName("source_code")[0];
-    const submit = document.getElementsByTagName("button")[0];
-    submit.innerText += " (dos2unix)";
+    const normalSubmit = document.getElementsByTagName("button")[0];
+    const submit = addNewButton(normalSubmit);
     submit.addEventListener("click", function (e) {
         e.preventDefault();
         const data = [];
