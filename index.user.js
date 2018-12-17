@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         AtCoder dos2unix UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.4
+// @version      1.5
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
+// @match        *://atcoder.jp/contests/*/submit*
+// @match        *://atcoder.jp/contests/*/tasks/*
 // @match        *://beta.atcoder.jp/contests/*/submit*
 // @match        *://beta.atcoder.jp/contests/*/tasks/*
 // @match        *://*.contest.atcoder.jp/submit*
@@ -71,11 +73,11 @@ function alpha() {
     });
 }
 function main() {
-    if (location.hostname == "beta.atcoder.jp") {
-        beta();
+    if (location.hostname.endsWith(".contest.atcoder.jp")) {
+        alpha();
     }
     else {
-        alpha();
+        beta();
     }
 }
 main();
