@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AtCoder dos2unix UserScript
 // @namespace    https://github.com/kmyk
-// @version      1.6
+// @version      1.7
 // @description  submit code using LF instead of CRLF
 // @author       Kimiyuki Onaka
 // @match        *://atcoder.jp/contests/*/submit*
@@ -66,15 +66,14 @@ function beta() {
 function alpha() {
     const session = document.getElementsByName("__session")[0];
     const taskId = document.getElementsByName("task_id")[0];
-    const languageId207 = document.getElementsByName("language_id_207")[0];
-    const languageId2520 = document.getElementsByName("language_id_2520")[0];
     const sourceCode = document.getElementsByName("source_code")[0];
+    const languageSelectors = document.getElementsByClassName("submit-language-selector");
     const normalSubmit = document.getElementsByTagName("button")[0];
     const submit = addNewButton(normalSubmit);
     submit.addEventListener("click", function (e) {
         e.preventDefault();
         const data = [];
-        for (const tag of [session, taskId, languageId207, languageId2520, sourceCode]) {
+        for (const tag of [session, taskId, sourceCode].concat(Array.from(languageSelectors))) {
             data.push(tag.name + '=' + encodeURIComponent(tag.value));
             console.log([tag.name, tag.value]);
         }
